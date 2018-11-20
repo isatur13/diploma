@@ -436,7 +436,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1393625293}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aa3d6e28dcf93143b306b0f9bbaec06, type: 3}
   m_Name: 
@@ -444,6 +444,19 @@ MonoBehaviour:
   maxSpeed: 10
   jumpForce: 90
   pushingForce: 5
+--- !u!114 &1393625298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1393625293}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d129dae13deaef345ba75c2f0dc05fe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 10
+  jumpForce: 90
 --- !u!1 &1511424314
 GameObject:
   m_ObjectHideFlags: 0
