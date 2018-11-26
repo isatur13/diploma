@@ -20,14 +20,22 @@ public class touchControlLite : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        anim.SetBool("isWalking", true);
+        
 
         if (player.isGrounded)
         {
             verticalVelocity += Physics.gravity.y;
             if (Input.touchCount > 0)
             {
-                verticalVelocity = jumpForce;
+                touch = Input.GetTouch(0);
+
+                Debug.Log(touch.position.x);
+
+                if (touch.position.x > 800f)
+                {
+                    Debug.Log("Nobi");
+                    anim.SetBool("isWalking", true);
+                }
             }
         }
         else
@@ -35,7 +43,7 @@ public class touchControlLite : MonoBehaviour {
             verticalVelocity += Physics.gravity.y;
         }
 
-        moveDir = new Vector3(0f, verticalVelocity * Time.deltaTime, maxSpeed * Time.deltaTime);
+        moveDir = new Vector3(0f, verticalVelocity * Time.deltaTime, 0);
         player.Move(moveDir);
 	}
 }

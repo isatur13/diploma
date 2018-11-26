@@ -11,7 +11,7 @@ public class touchPosition : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.touchCount>0)
-        Debug.Log(Input.GetTouch(0).position);
+       
+        // Debug.Log(Input.GetTouch(0).position.x);
 	}
 }

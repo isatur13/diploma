@@ -13,12 +13,15 @@ public class move : MonoBehaviour {
     public float pushingForce;
     Rigidbody pushingObject;
     float verticalVelocity;
+    bool jumpPowerUp;
+    public float jumpPowerUpForce;
 
 
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        jumpPowerUp = false;
     }
 	
     void Update()
@@ -38,7 +41,10 @@ public class move : MonoBehaviour {
             verticalVelocity += Physics.gravity.y;
             if (Input.GetButtonDown("Jump"))
             {
-                verticalVelocity = jumpForce;
+                if (!jumpPowerUp)
+                    verticalVelocity = jumpForce;
+                else
+                    verticalVelocity = jumpPowerUpForce;
             }
         }
         else
@@ -77,5 +83,18 @@ public class move : MonoBehaviour {
         }
         pushingObject.velocity = new Vector3(0,0,hit.moveDirection.z * pushingForce); 
 
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Power Up"))
+        {
+            other.gameObject.SetActive(false);
+            jumpPowerUp = true;
+        }
+        if (other.gameObject.CompareTag("Power Down"))
+        {
+            other.gameObject.SetActive(false);
+            jumpPowerUp = false;
+        }
     }
 }
