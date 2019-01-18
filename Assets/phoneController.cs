@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class move : MonoBehaviour {
+public class phoneController : MonoBehaviour {
 
     public float maxSpeed;
     bool facingRight = true;
@@ -15,8 +15,10 @@ public class move : MonoBehaviour {
     float verticalVelocity;
     bool jumpPowerUp;
     public float jumpPowerUpForce;
-    public bool hasKey =  false;
-
+    public bool hasKey = false;
+    public bool jump;
+    public bool moveRight;
+    public bool moveLeft;
 
     // Use this for initialization
     void Start () {
@@ -25,43 +27,24 @@ public class move : MonoBehaviour {
         jumpPowerUp = false;
     }
 	
-    void Update()
-        
-    {
-        
-        if (Input.GetAxis("Horizontal") != 0){
-            anim.SetBool("isWalking", true);
-        }
-        if (Input.GetAxis("Horizontal") == 0)
-        {
-            anim.SetBool("isWalking", false);
-        }
-        if (controller.isGrounded)
-        {
+	// Update is called once per frame
+	void Update () {
 
-            if (Input.GetButtonDown("Jump"))
-            {
-                if (!jumpPowerUp)
-                    verticalVelocity = jumpForce;
-                else
-                    verticalVelocity = jumpPowerUpForce;
-            }
-        }
-        else
+        if (!controller.isGrounded)
         {
             verticalVelocity += Physics.gravity.y;
         }
-        moveDirection = new Vector3(0, verticalVelocity * Time.deltaTime, Input.GetAxis("Horizontal") * maxSpeed*Time.deltaTime);
-        controller.Move(moveDirection );
-
-        if (Input.GetAxis("Horizontal") > 0 && !facingRight)
+        
+        if (moveDirection.z > 0 && !facingRight)
         {
             Flip();
         }
-        if (Input.GetAxis("Horizontal") < 0 && facingRight)
+        if (moveDirection.z < 0 && facingRight)
         {
             Flip();
         }
+        moveDirection.y = verticalVelocity * Time.deltaTime;
+        controller.Move(moveDirection);
     }
     void Flip()
     {
@@ -70,18 +53,52 @@ public class move : MonoBehaviour {
         theScale.z *= -1;
         transform.localScale = theScale;
     }
+
+    public void MoveRight(bool move)
+    {
+        if (move)
+        {
+            moveDirection.z = maxSpeed * Time.deltaTime;
+            anim.SetBool("isWalking", true);
+        }
+    }
+
+    public void MoveLeft(bool move)
+    {
+        if (move)
+        {
+            moveDirection.z = -maxSpeed * Time.deltaTime;
+            anim.SetBool("isWalking", true);
+        }
+    }
+
+    public void Jump(bool jump)
+    {
+        if (controller.isGrounded)
+        {
+            if (jump)
+            {
+                if (jumpPowerUp)
+                    verticalVelocity = jumpPowerUpForce;
+                else
+                    verticalVelocity = jumpForce;
+            }
+        }
+    }
+    
+    
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         pushingObject = hit.collider.attachedRigidbody;
-        if(pushingObject == null || hit.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (pushingObject == null || hit.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             return;
         }
-        if(hit.moveDirection.y < -0.5)
+        if (hit.moveDirection.y < -0.5)
         {
             return;
         }
-        pushingObject.velocity = new Vector3(0,0,hit.moveDirection.z * pushingForce); 
+        pushingObject.velocity = new Vector3(0, 0, hit.moveDirection.z * pushingForce);
 
     }
     private void OnTriggerEnter(Collider other)
@@ -102,5 +119,5 @@ public class move : MonoBehaviour {
             hasKey = true;
         }
     }
-
 }
+

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class touchControlLite : MonoBehaviour {
 
@@ -11,11 +12,15 @@ public class touchControlLite : MonoBehaviour {
     float verticalVelocity;
     Vector3 moveDir;
     Animator anim;
+    public Button rightbtn;
+    public Button leftbtn;
+    public Button jumpbtn;
 
 	// Use this for initialization
 	void Start () {
         player = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        rightbtn.onClick.AddListener(delegate { changeText(rightbtn); });
 	}
 	
 	// Update is called once per frame
@@ -46,4 +51,8 @@ public class touchControlLite : MonoBehaviour {
         moveDir = new Vector3(0f, verticalVelocity * Time.deltaTime, 0);
         player.Move(moveDir);
 	}
+    void changeText(Button btn)
+    {
+        btn.GetComponentInChildren<Text>().text="changes";
+    }
 }
