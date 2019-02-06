@@ -16,9 +16,8 @@ public class phoneController : MonoBehaviour {
     bool jumpPowerUp;
     public float jumpPowerUpForce;
     public bool hasKey = false;
-    public bool jump;
-    public bool moveRight;
-    public bool moveLeft;
+    public gameState gameState;
+    public float gravityMultiplier;
 
     // Use this for initialization
     void Start () {
@@ -32,7 +31,7 @@ public class phoneController : MonoBehaviour {
 
         if (!controller.isGrounded)
         {
-            verticalVelocity += Physics.gravity.y;
+            verticalVelocity += Physics.gravity.y * Time.deltaTime*gravityMultiplier;
         }
         
         if (moveDirection.z > 0 && !facingRight)
@@ -43,7 +42,12 @@ public class phoneController : MonoBehaviour {
         {
             Flip();
         }
+        if (controller.isGrounded)
+            anim.SetBool("isJumping", false);
+        else
+            anim.SetBool("isJumping", true);
         moveDirection.y = verticalVelocity * Time.deltaTime;
+        anim.SetFloat("vertVel", verticalVelocity);
         controller.Move(moveDirection);
     }
     void Flip()
@@ -61,6 +65,11 @@ public class phoneController : MonoBehaviour {
             moveDirection.z = maxSpeed * Time.deltaTime;
             anim.SetBool("isWalking", true);
         }
+        else
+        {
+            moveDirection.z = 0;
+            anim.SetBool("isWalking", false);
+        }
     }
 
     public void MoveLeft(bool move)
@@ -70,6 +79,11 @@ public class phoneController : MonoBehaviour {
             moveDirection.z = -maxSpeed * Time.deltaTime;
             anim.SetBool("isWalking", true);
         }
+        else
+        {
+            moveDirection.z = 0;
+            anim.SetBool("isWalking", false);
+        }
     }
 
     public void Jump(bool jump)
@@ -78,6 +92,7 @@ public class phoneController : MonoBehaviour {
         {
             if (jump)
             {
+                
                 if (jumpPowerUp)
                     verticalVelocity = jumpPowerUpForce;
                 else
@@ -117,6 +132,14 @@ public class phoneController : MonoBehaviour {
         {
             other.gameObject.SetActive(false);
             hasKey = true;
+        }
+        if (other.gameObject.CompareTag("Trap"))
+        {
+            gameState.GameOver();
+            if (Input.anyKey)
+            {
+                gameState.Restart();
+            }
         }
     }
 }

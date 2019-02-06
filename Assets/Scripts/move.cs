@@ -19,7 +19,7 @@ public class move : MonoBehaviour {
     public bool hasKey =  false;
     private Rigidbody rb;
     public float gravityMultiplier;
-    private gameState gameState;
+    public gameState gameState;
 
 
     // Use this for initialization
@@ -28,7 +28,6 @@ public class move : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         jumpPowerUp = false;
         rb = GetComponent<Rigidbody>();
-        gameState = FindObjectOfType(typeof(gameState)) as gameState;
     }
 	
     void FixedUpdate()
