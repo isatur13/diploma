@@ -100,8 +100,8 @@ public class phoneController : MonoBehaviour {
             }
         }
     }
-    
-    
+
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         pushingObject = hit.collider.attachedRigidbody;
