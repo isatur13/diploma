@@ -44,8 +44,6 @@ public class phoneController : MonoBehaviour {
         }
         if (controller.isGrounded)
             anim.SetBool("isJumping", false);
-        else
-            anim.SetBool("isJumping", true);
         moveDirection.y = verticalVelocity * Time.deltaTime;
         anim.SetFloat("vertVel", verticalVelocity);
         controller.Move(moveDirection);
@@ -86,22 +84,19 @@ public class phoneController : MonoBehaviour {
         }
     }
 
-    public void Jump(bool jump)
+    public void Jump()
     {
         if (controller.isGrounded)
         {
-            if (jump)
-            {
-                
-                if (jumpPowerUp)
-                    verticalVelocity = jumpPowerUpForce;
-                else
-                    verticalVelocity = jumpForce;
-            }
+            anim.SetBool("isJumping",true);
+            if (jumpPowerUp)
+                verticalVelocity = jumpPowerUpForce;
+            else
+                verticalVelocity = jumpForce;
         }
     }
-
-
+    
+    
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         pushingObject = hit.collider.attachedRigidbody;
@@ -136,10 +131,6 @@ public class phoneController : MonoBehaviour {
         if (other.gameObject.CompareTag("Trap"))
         {
             gameState.GameOver();
-            if (Input.anyKey)
-            {
-                gameState.Restart();
-            }
         }
     }
 }

@@ -29,7 +29,7 @@ public class move : MonoBehaviour {
         jumpPowerUp = false;
         rb = GetComponent<Rigidbody>();
     }
-	
+
     void FixedUpdate()
         
     {
@@ -96,6 +96,11 @@ public class move : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Key"))
+        {
+            other.gameObject.SetActive(false);
+            hasKey = true;
+        }
         if (other.gameObject.CompareTag("Power Up"))
         {
             other.gameObject.SetActive(false);
@@ -106,18 +111,10 @@ public class move : MonoBehaviour {
             other.gameObject.SetActive(false);
             jumpPowerUp = false;
         }
-        if (other.gameObject.CompareTag("Key"))
-        {
-            other.gameObject.SetActive(false);
-            hasKey = true;
-        }
+        
         if(other.gameObject.CompareTag("Trap"))
         {
             gameState.GameOver();
-            if (Input.anyKey)
-            {
-                gameState.Restart();
-            }
         }
     }
 

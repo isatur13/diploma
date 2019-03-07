@@ -18,7 +18,7 @@ public class gameState : MonoBehaviour{
     public Button btn_left;
     public Button btn_right;
     public Button btn_jump;
-    public Canvas canvas_gameOver;
+    public Canvas canvas_gameover;
 
     // Start is called before the first frame update
     private void Awake()
@@ -37,12 +37,13 @@ public class gameState : MonoBehaviour{
     }
     public void GameOver()
     {
-        canvas_gameOver.gameObject.SetActive(true);
+        canvas_gameover.gameObject.SetActive(true);
+        btn_pause.gameObject.SetActive(false);
         Time.timeScale = 0;
     }
     public void RestartfromDeath()
     {
-        canvas_gameOver.gameObject.SetActive(false);
+        canvas_gameover.gameObject.SetActive(false);
         SceneManager.LoadScene("scene1");
         Time.timeScale=1;
     }

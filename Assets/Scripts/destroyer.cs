@@ -5,24 +5,28 @@ using UnityEngine;
 public class destroyer : MonoBehaviour {
 
     public GameObject player;
+    public CharacterController playerCollider;
     Component move;
-    public bool hasKey;
-    Transform door;
-    bool moved = false;
+    bool hasKey;
+    public bool playerNear;
+    bool moved;
+    Ray ray;
+    RaycastHit hit;
 
 	// Use this for initialization
 	void Start () {
-        door = GetComponent<Transform>();
+        moved = false;
+        playerNear = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         
         hasKey = player.GetComponent<move>().hasKey;
-        if (hasKey == true && moved == false)
+        if (hasKey && !moved)
         {
-            door.Rotate(new Vector3(0, 0, -90));
-            door.Translate(new Vector3(3.5f,5.5f,0));
+            transform.Rotate(new Vector3(0, 0, -90));
+            transform.Translate(new Vector3(3.5f,5.5f,0));
             moved = true;
         }
 	}

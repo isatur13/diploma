@@ -629,14 +629,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ControlWtihMultitouch.cs" />
     <Compile Include="Assets\Scripts\destroyer.cs" />
-    <Compile Include="Assets\Scripts\fckimove.cs" />
     <Compile Include="Assets\Scripts\followPlayer.cs" />
     <Compile Include="Assets\Scripts\gameState.cs" />
     <Compile Include="Assets\Scripts\move.cs" />
     <Compile Include="Assets\Scripts\phoneController.cs" />
-    <Compile Include="Assets\Scripts\rightControl.cs" />
+    <Compile Include="Assets\Scripts\Scroller.cs" />
     <Compile Include="Assets\Scripts\touchController.cs" />
     <Compile Include="Assets\Scripts\touchControlLite.cs" />
     <Compile Include="Assets\Scripts\touchPosition.cs" />
