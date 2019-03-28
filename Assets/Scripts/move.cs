@@ -20,6 +20,8 @@ public class move : MonoBehaviour {
     private Rigidbody rb;
     public float gravityMultiplier;
     public gameState gameState;
+    public enterCave enterCave;
+    public Transform CaveEntry;
 
 
     // Use this for initialization
@@ -116,6 +118,17 @@ public class move : MonoBehaviour {
         {
             gameState.GameOver();
         }
+        
     }
-
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("CaveEntry") && transform.position.z > CaveEntry.position.z)
+        {
+            enterCave.inCave = true;
+        }
+        else if(other.CompareTag("CaveEntry") && transform.position.z < CaveEntry.position.z)
+        {
+            enterCave.inCave = false;
+        }
+    }
 }

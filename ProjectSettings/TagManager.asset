@@ -9,6 +9,8 @@ TagManager:
   - Door
   - Key
   - Trap
+  - Pullable
+  - CaveEntry
   layers:
   - Default
   - TransparentFX

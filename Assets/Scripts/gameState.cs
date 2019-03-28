@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class gameState : MonoBehaviour{
 
-    public  Text txt_GameOver;
-    public  Text txt_GO_Info;
     public Button btn_Play;
     public Button btn_HTP;
     public Button btn_Settings;
